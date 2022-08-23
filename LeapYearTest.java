@@ -1,10 +1,13 @@
-package LeapYear;
+package LeapYearTDD;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.rules.ExpectedException;
 
-class LeapYearTest {
+public class LeapYearTest {
 
 	@Test
 	public void allYearsDivisibleby400 () {
@@ -38,4 +41,13 @@ class LeapYearTest {
 		assertEquals(false, LeapYearSrc.findLeapYear(2019));
 	}
 	
+	@Test 
+	public void negativeYearThrowsException(){
+		
+		IllegalArgumentException thrown = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			LeapYearSrc.findLeapYear(-2017);
+		}, "IllegalArgumentException Expected");
+		
+		Assertions.assertEquals("A year cannot be negative: -2017. Did you mean 2017?", thrown.getMessage());
+	}
 }
